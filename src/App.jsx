@@ -21,7 +21,7 @@ const menuData = {
   特色菜: ["咸蛋黄豆腐虾"]
 };
 
-const recommendedItems = ["牛肉丼(王亦钦爱吃)", "洋葱烧鸡", "番茄炒蛋", "香菇炒青菜"];
+const recommendedItems = ["牛肉丼", "洋葱烧鸡", "番茄炒蛋", "香菇炒青菜"];
 
 export default function App() {
   const [selectedItems, setSelectedItems] = useState([]);
@@ -76,7 +76,7 @@ export default function App() {
         <section className="hero-card">
           <div className="hero-text">
             <p className="tiny-label">Finn Gong's menu</p>
-            <h1>芷卉 专属点菜菜单</h1>
+            <h1>王亦钦专属点菜菜单</h1>
             <p className="hero-desc">今天想吃什么</p>
           </div>
 
