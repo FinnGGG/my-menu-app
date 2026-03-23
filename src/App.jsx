@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import "./App.css";
 
 const menuData = {
-  主食: ["米饭", "Finn Gong经典炒面", "阳春面", "牛肉丼", "芝士汉堡"],
+  主食: ["米饭", "Finn Gong经典炒面", "阳春面", "牛肉丼(王亦钦爱吃)", "芝士汉堡"],
   鸡肉类: ["洋葱烧鸡", "蘑菇烧鸡"],
   肉类: ["小炒牛肉", "葱烧牛肉", "孜然土豆牛肉", "辣椒炒肉", "锅包肉"],
   蔬菜豆腐类: [
@@ -21,7 +21,7 @@ const menuData = {
   特色菜: ["咸蛋黄豆腐虾"]
 };
 
-const recommendedItems = ["牛肉丼", "洋葱烧鸡", "番茄炒蛋", "香菇炒青菜"];
+const recommendedItems = ["牛肉丼(王亦钦爱吃)", "洋葱烧鸡", "番茄炒蛋", "香菇炒青菜"];
 
 export default function App() {
   const [selectedItems, setSelectedItems] = useState([]);
@@ -75,9 +75,9 @@ export default function App() {
       <div className="container">
         <section className="hero-card">
           <div className="hero-text">
-            <p className="tiny-label">Yiqin's menu</p>
-            <h1>Yiqin 专属点菜菜单</h1>
-            <p className="hero-desc">今天想吃什么，我给你做。</p>
+            <p className="tiny-label">Finn Gong's menu</p>
+            <h1>芷卉 专属点菜菜单</h1>
+            <p className="hero-desc">今天想吃什么</p>
           </div>
 
           <div className="hero-badge">每日点菜</div>
