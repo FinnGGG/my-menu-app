@@ -21,6 +21,8 @@ const menuData = {
   特色菜: ["咸蛋黄豆腐虾"]
 };
 
+const recommendedItems = ["牛肉丼", "洋葱烧鸡", "番茄炒蛋", "香菇炒青菜"];
+
 export default function App() {
   const [selectedItems, setSelectedItems] = useState([]);
   const [copied, setCopied] = useState(false);
@@ -38,10 +40,20 @@ export default function App() {
     setCopied(false);
   };
 
+  const chooseRandomItem = () => {
+    const allItems = Object.values(menuData).flat();
+    const randomItem = allItems[Math.floor(Math.random() * allItems.length)];
+
+    setSelectedItems((prev) =>
+      prev.includes(randomItem) ? prev : [...prev, randomItem]
+    );
+  };
+
   const orderText = useMemo(() => {
     if (selectedItems.length === 0) {
       return "今天还没有选菜";
     }
+
     return `今天想吃：\n${selectedItems.join("、")}`;
   }, [selectedItems]);
 
@@ -57,44 +69,85 @@ export default function App() {
 
   return (
     <div className="page">
+      <div className="bg-deco deco-1"></div>
+      <div className="bg-deco deco-2"></div>
+
       <div className="container">
-        <div className="header-card">
-          <h1>专属点菜菜单</h1>
-          <p>选好今天想吃的菜，我就照着做。</p>
-        </div>
+        <section className="hero-card">
+          <div className="hero-text">
+            <p className="tiny-label">Yiqin's menu</p>
+            <h1>Yiqin 专属点菜菜单</h1>
+            <p className="hero-desc">今天想吃什么，我给你做。</p>
+          </div>
+
+          <div className="hero-badge">每日点菜</div>
+        </section>
+
+        <section className="recommend-card">
+          <div className="recommend-header">
+            <h2>今日推荐</h2>
+            <span>帮你快速选</span>
+          </div>
+
+          <div className="recommend-list">
+            {recommendedItems.map((item) => (
+              <button
+                key={item}
+                className={`recommend-chip ${
+                  selectedItems.includes(item) ? "active-chip" : ""
+                }`}
+                onClick={() => toggleItem(item)}
+              >
+                {selectedItems.includes(item) ? "💗 " : ""}
+                {item}
+              </button>
+            ))}
+          </div>
+        </section>
 
         <div className="layout">
           <div className="menu-section">
             {Object.entries(menuData).map(([category, items]) => (
-              <div className="card" key={category}>
-                <h2>{category}</h2>
+              <section className="card" key={category}>
+                <div className="section-title-row">
+                  <h2>{category}</h2>
+                  <span className="section-count">{items.length} 道</span>
+                </div>
+
                 <div className="grid">
                   {items.map((item) => {
                     const checked = selectedItems.includes(item);
+
                     return (
                       <button
                         key={item}
                         className={`menu-item ${checked ? "active" : ""}`}
                         onClick={() => toggleItem(item)}
                       >
-                        <span className="check">{checked ? "✅" : "⬜"}</span>
-                        <span>{item}</span>
+                        <div className="menu-item-left">
+                          <span className="check-circle">
+                            {checked ? "✓" : ""}
+                          </span>
+                          <span className="dish-name">{item}</span>
+                        </div>
                       </button>
                     );
                   })}
                 </div>
-              </div>
+              </section>
             ))}
           </div>
 
-          <div className="summary-section">
-            <div className="card sticky">
-              <h2>今日点单</h2>
-              <p className="count">已选择 {selectedItems.length} 道</p>
+          <aside className="summary-section">
+            <div className="card sticky-card">
+              <div className="summary-header">
+                <h2>今日点单</h2>
+                <p>已选择 {selectedItems.length} 道菜</p>
+              </div>
 
               <div className="selected-box">
                 {selectedItems.length === 0 ? (
-                  <p className="empty">还没有选择菜品</p>
+                  <p className="empty-text">还没有选择菜品</p>
                 ) : (
                   <div className="tag-list">
                     {selectedItems.map((item) => (
@@ -107,20 +160,25 @@ export default function App() {
               </div>
 
               <div className="copy-box">
-                <p className="label">复制给对方的文字</p>
+                <p className="copy-label">复制给 Finn 的文字</p>
                 <pre>{orderText}</pre>
               </div>
 
-              <div className="btn-row">
+              <div className="btn-column">
                 <button className="primary-btn" onClick={copyOrder}>
                   {copied ? "已复制" : "复制点单"}
                 </button>
+
+                <button className="soft-btn" onClick={chooseRandomItem}>
+                  随机帮我选一道
+                </button>
+
                 <button className="secondary-btn" onClick={resetSelection}>
-                  清空
+                  清空重选
                 </button>
               </div>
             </div>
-          </div>
+          </aside>
         </div>
       </div>
     </div>
