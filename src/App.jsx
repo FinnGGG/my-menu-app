@@ -51,7 +51,7 @@ export default function App() {
 
   const orderText = useMemo(() => {
     if (selectedItems.length === 0) {
-      return "今天还没有选菜";
+      return "今天我要减肥不吃饭";
     }
 
     return `今天想吃：\n${selectedItems.join("、")}`;
